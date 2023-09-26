@@ -4,7 +4,7 @@
     <mat-card-content fxLayoutAlign="center">
       <mat-form-field>
         <mat-label>Your exercises</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="selectedExercise">
           <mat-option value="crunches"> Crunches </mat-option>
           <mat-option value="touch-toes"> Touch Toes </mat-option>
           <mat-option value="side-lunges"> Side lunges </mat-option>
@@ -13,7 +13,7 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="center">
-      <button type="Submit" mat-button>Start</button>
+      <button type="button" mat-button (click)="startTraining()">Start</button>
     </mat-card-actions>
   </mat-card>
 </section>
