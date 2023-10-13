@@ -48,4 +48,7 @@ export class TrainingService {
       // You can throw an error, log a message, or take any appropriate action.
     }
   }
+  getRunningExercise(){
+    return {...this.runningExercise};
+  }
 }
