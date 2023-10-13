@@ -1,7 +1,9 @@
 import { Exercise } from './exercise.model';
+import { Subject } from 'rxjs';
 
 export class TrainingService {
-  availableExercises: Exercise[] = [
+  exerciseChanged = new Subject<Exercise>();
+  private availableExercises: Exercise[] = [
     {
       id: 'crunches',
       name: 'Crunches',
@@ -27,4 +29,23 @@ export class TrainingService {
       calories: 8,
     },
   ];
+  private runningExercise: Exercise | undefined;
+
+  getAvailableExercises() {
+    return this.availableExercises.slice();
+  }
+
+  startExercise(selectedId: string) {
+    const selectedExercise = this.availableExercises.find(
+      (ex) => ex.id === selectedId
+    );
+
+    if (selectedExercise) {
+      this.runningExercise = selectedExercise;
+      this.exerciseChanged.next({ ...this.runningExercise });
+    } else {
+      // Handle the case where the selected exercise is not found.
+      // You can throw an error, log a message, or take any appropriate action.
+    }
+  }
 }
