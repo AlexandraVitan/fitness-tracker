@@ -10,26 +10,27 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./new-training.component.css'],
 })
 export class NewTrainingComponent implements OnInit {
-  @Output() trainingStart = new EventEmitter<void>();
+  //@Output() trainingStart = new EventEmitter<void>();
   exercises: Exercise[] = [];
 
   ongoingTraining = false;
   //constructor(private trainingService: TrainingService) {}
-  selectedExercise: string | undefined;
+  selectedExercise?: string;
 
-  constructor(private router: Router, private trainingService: TrainingService) {}
+  constructor(
+    private router: Router,
+    private trainingService: TrainingService
+  ) {}
   ngOnInit(): void {
     this.exercises = this.trainingService.getAvailableExercises();
   }
 
-  onStartTraining() {
-    this.trainingStart.emit();
-    this.router.navigate(['/current-training']);
-  }
-
-  //   onstartTraining() {
-  // You can use the selectedExercise value if needed to pass data to the Current Training component
-  // For now, let's assume you just want to navigate to the Current Training component
-  //     this.router.navigate(['/current-training']);
+  // onStartTraining() {
+  //   this.trainingStart.emit();
+  //   this.router.navigate(['/current-training']);
   // }
+  onStartTraining(form: NgForm) {
+    this.trainingService.startExercise(form.value.exercise);
+    //this.router.navigate(['/current-training']);
+  }
 }
