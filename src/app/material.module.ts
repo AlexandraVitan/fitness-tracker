@@ -33,7 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule,
+    MatDialogModule
     
   ],
   exports: [
