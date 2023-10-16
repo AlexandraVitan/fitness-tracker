@@ -17,7 +17,9 @@ export class TrainingService {
   }
 
   startExercise(selectedId: string) {
-    const selectedExercise = this.availableExercises.find(ex => ex.id === selectedId);
+    const selectedExercise = this.availableExercises.find(
+      (ex) => ex.id === selectedId
+    );
     if (selectedExercise) {
       this.runningExercise = selectedExercise;
       this.exerciseChanged.next({ ...this.runningExercise });
@@ -32,6 +34,7 @@ export class TrainingService {
       this.exercises.push({
         ...this.runningExercise,
         date: new Date(),
+
         state: 'completed',
       });
       this.runningExercise = null;
