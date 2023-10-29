@@ -29,10 +29,15 @@ export class NewTrainingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.exercises = 
-    this.db.collection('availableExercises')
-    .snapshotChanges()
-    .subscribe(result => console.log(result));
+    //this.exercises =
+    this.db
+      .collection('availableExercises')
+      .snapshotChanges()
+      .subscribe((result) => {
+        for (const res of result) {
+          console.log(res.payload.doc.data());
+        }
+      });
 
     //this.exercises = this.trainingService.getAvailableExercises();
   }
