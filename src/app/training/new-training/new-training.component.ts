@@ -1,53 +1,45 @@
-import {
-  AngularFirestore,
-  AngularFirestoreModule,
-} from '@angular/fire/compat/firestore';
-
-import { TrainingService } from './../training.service';
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Exercise } from '../exercise.model';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { TrainingService } from './../training.service';
+//import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-new-training',
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css'],
 })
-export class NewTrainingComponent implements OnInit {
-  //@Output() trainingStart = new EventEmitter<void>();
-  exercises: Observable<any> | undefined;
+export class NewTrainingComponent implements OnInit, OnDestroy {
+  exercises: Exercise[] | null = null;
+  exerciseSubscription: Subscription | null = null;
 
   ongoingTraining = false;
-  selectedExercise?: string;
+  selectedExercise: string | null = null;
+  Subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
-    private trainingService: TrainingService,
-    private db: AngularFirestore
+    private trainingService: TrainingService
   ) {}
 
-  ngOnInit(): void {
-    //this.exercises =
-    this.db
-      .collection('availableExercises')
-      .snapshotChanges()
-      .subscribe((result) => {
-        for (const res of result) {
-          console.log(res.payload.doc.data());
-        }
-      });
-
-    //this.exercises = this.trainingService.getAvailableExercises();
+  ngOnDestroy(): void {
+    if (this.exerciseSubscription) {
+      this.exerciseSubscription.unsubscribe();
+    }
   }
 
-  // onStartTraining() {
-  //   this.trainingStart.emit();
-  //   this.router.navigate(['/current-training']);
-  // }
+  ngOnInit(): void {
+    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
+      exercises => (this.exercises = exercises)
+    );
+    this.trainingService.fetchAvailableExercises();
+  }
+
   onStartTraining(form: NgForm) {
-    this.trainingService.startExercise(form.value.exercise);
-    //this.router.navigate(['/current-training']);
+    if (this.selectedExercise) {
+      this.trainingService.startExercise(this.selectedExercise);
+    }
   }
 }
