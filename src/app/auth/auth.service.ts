@@ -18,7 +18,6 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
-    private snackbar: MatSnackBar,
     private uiService: UIService
   ) {}
 
@@ -47,9 +46,7 @@ export class AuthService {
         })
         .catch((error: any) => {
           this.uiService.loadingStateChanged.next(false);
-          this.snackbar.open(error.message, undefined, {
-            duration: 3000,
-          });
+          this.uiService.showSnackbar(error.message, null, 3000);
         });
     } else {
       console.error('Invalid email or password');
@@ -66,9 +63,7 @@ export class AuthService {
         })
         .catch((error: any) => {
           this.uiService.loadingStateChanged.next(false);
-          this.snackbar.open(error.message, undefined, {
-            duration: 3000,
-          });
+          this.uiService.showSnackbar(error.message, null, 3000);
         });
     } else {
       console.error('Invalid email or password');
