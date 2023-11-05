@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 import { TrainingService } from '../training/training.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,9 @@ export class AuthService {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private snackbar: MatSnackBar,
+    private uiService: UIService
   ) {}
 
   initAuthListener() {
@@ -34,12 +38,18 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     if (authData.email && authData.password) {
       this.afAuth
         .createUserWithEmailAndPassword(authData.email, authData.password)
-        //.then((result: any) => {})
+        .then((result) => {
+          this.uiService.loadingStateChanged.next(false);
+        })
         .catch((error: any) => {
-          console.log(error);
+          this.uiService.loadingStateChanged.next(false);
+          this.snackbar.open(error.message, undefined, {
+            duration: 3000,
+          });
         });
     } else {
       console.error('Invalid email or password');
@@ -47,12 +57,18 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     if (authData.email && authData.password) {
       this.afAuth
         .signInWithEmailAndPassword(authData.email, authData.password)
-        //.then((result: any) => {})
+        .then((result) => {
+          this.uiService.loadingStateChanged.next(false);
+        })
         .catch((error: any) => {
-          console.log(error);
+          this.uiService.loadingStateChanged.next(false);
+          this.snackbar.open(error.message, undefined, {
+            duration: 3000,
+          });
         });
     } else {
       console.error('Invalid email or password');

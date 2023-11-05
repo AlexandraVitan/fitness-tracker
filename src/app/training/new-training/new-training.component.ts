@@ -5,21 +5,28 @@ import { map } from 'rxjs/operators';
 
 import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
+import { UIService } from 'src/app/shared/ui.service';
 
 @Component({
   selector: 'app-new-training',
   templateUrl: './new-training.component.html',
-  styleUrls: ['./new-training.component.css']
+  styleUrls: ['./new-training.component.css'],
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises: Exercise[] | null = null;;
+  exercises: Exercise[] | null = null;
   exerciseSubscription: Subscription | null = null;
+  isLoading = true;
 
-  constructor(private trainingService: TrainingService) {}
+  constructor(
+    private trainingService: TrainingService
+  ) {}
 
   ngOnInit() {
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
-      exercises => (this.exercises = exercises)
+      (exercises) => {
+        this.exercises = exercises;
+        this.isLoading = false;
+      }
     );
     this.trainingService.fetchAvailableExercises();
   }
