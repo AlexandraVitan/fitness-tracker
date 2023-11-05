@@ -12,16 +12,32 @@ export class AuthService {
   private user: User = {};
   private isAuthenticated = false;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private trainingService: TrainingService) {}
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private trainingService: TrainingService
+  ) {}
+
+  initAuthListener() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      } else {
+        this.trainingService.cancelSubscriptions();
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+        this.isAuthenticated = false;
+      }
+    });
+  }
 
   registerUser(authData: AuthData) {
     if (authData.email && authData.password) {
       this.afAuth
         .createUserWithEmailAndPassword(authData.email, authData.password)
-        .then((result: any) => {
-          console.log(result);
-          this.authSuccessfully();
-        })
+        //.then((result: any) => {})
         .catch((error: any) => {
           console.log(error);
         });
@@ -34,10 +50,7 @@ export class AuthService {
     if (authData.email && authData.password) {
       this.afAuth
         .signInWithEmailAndPassword(authData.email, authData.password)
-        .then((result: any) => {
-          console.log(result);
-          this.authSuccessfully();
-        })
+        //.then((result: any) => {})
         .catch((error: any) => {
           console.log(error);
         });
@@ -47,21 +60,14 @@ export class AuthService {
   }
 
   logout() {
-    this.trainingService.cancelSubscriptions();
     this.afAuth.signOut();
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-    this.isAuthenticated = false;
+    // this.trainingService.cancelSubscriptions();
+    // this.authChange.next(false);
+    // this.router.navigate(['/login']);
+    // this.isAuthenticated = false;
   }
-
 
   isAuth() {
     return this.isAuthenticated;
-  }
-
-  private authSuccessfully() {
-    this.isAuthenticated = true;
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
   }
 }

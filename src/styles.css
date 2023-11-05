@@ -3,11 +3,18 @@
 /* html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
-html, body{
-    font-family: 'Roboto', sans-serif;
-    height: 100%;
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  height: 100%;
 }
-body{
-    margin: 0;
-    height: 100%;
+body {
+  margin: 0;
+  height: 100%;
+}
+mat-card {
+  padding: 30px;
+}
+.mat-mdc-text-field-wrapper {
+  background-color: transparent !important;
 }
