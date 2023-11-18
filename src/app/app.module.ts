@@ -34,7 +34,6 @@ import { TrainingModule } from './training/training.module';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     AuthModule,
     TrainingModule,
   ],

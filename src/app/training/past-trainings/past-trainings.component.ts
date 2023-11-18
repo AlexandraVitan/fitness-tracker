@@ -29,7 +29,7 @@ export class PastTrainingsComponent
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private trainingService: TrainingService) {}
-  
+
   ngOnInit(): void {
     this.trainingService.finishedExercisesChanged.subscribe(
       (exercises: Exercise[]) => {
@@ -51,6 +51,8 @@ export class PastTrainingsComponent
     }
   }
   ngOnDestroy(): void {
-    this.exChangedSubscription?.unsubscribe();
+    if (this.exChangedSubscription) {
+      this.exChangedSubscription?.unsubscribe();
+    }
   }
 }
