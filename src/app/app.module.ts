@@ -17,6 +17,7 @@ import { TrainingService } from './training/training.service';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
 import { TrainingModule } from './training/training.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TrainingModule } from './training/training.module';
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
     TrainingModule,
+    SharedModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],
