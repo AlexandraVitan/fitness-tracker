@@ -18,6 +18,7 @@ import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
 import { TrainingModule } from './training/training.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthRoutingModule } from './auth/auth.routing.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SharedModule } from './shared/shared.module';
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
     TrainingModule,
-    SharedModule
+    SharedModule,
+    AuthRoutingModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],
