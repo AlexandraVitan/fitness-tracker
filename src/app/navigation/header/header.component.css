@@ -5,7 +5,7 @@ a {
 
 a:hover,
 a:active {
-  color: blue;
+  color: rgb(159, 86, 243);
 }
 .nav-caption {
   display: inline-block;

@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthRoutingModule } from './auth/auth.routing.module';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
