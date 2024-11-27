@@ -1,3 +1,62 @@
-.new-training{
-    padding:30px;
+/* General Styles */
+.new-training {
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #673ab7, #e3b3f9);
+  color: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+mat-card-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.exercise-select mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button.primary {
+  background-color: white;
+  color: #673ab7;
+}
+
+.cta-button.primary:hover {
+  background-color: #673ab7;
+  color: white;
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.cta-button.secondary:hover {
+  background-color: white;
+  color: #673ab7;
+}
+
+mat-spinner {
+  margin-top: 20px;
+}
+
+mat-form-field {
+  color: white;
 }

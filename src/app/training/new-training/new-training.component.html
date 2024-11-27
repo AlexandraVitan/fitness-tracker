@@ -1,33 +1,11 @@
-<!-- <section class="new-training" fxLayout fxLayoutAlign="center">
-  <mat-card fxFlex.xs="100%" fxFlex="400px">
-    <mat-card-title fxLayoutAlign="center"> Time to work out </mat-card-title>
-    <mat-card-content fxLayoutAlign="center">
-      <mat-form-field>
-        <mat-label>Your exercises</mat-label>
-        <mat-select [(ngModel)]="selectedExercise">
-          <mat-option value="crunches"> Crunches </mat-option>
-          <mat-option value="touch-toes"> Touch Toes </mat-option>
-          <mat-option value="side-lunges"> Side lunges </mat-option>
-          <mat-option value="burpees"> Burpees </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions fxLayoutAlign="center">
-      <button type="button" mat-button (click)="onStartTraining()">
-        Start
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</section>  -->
-
 <section class="new-training" fxLayout fxLayoutAlign="center">
-  <form (ngSubmit)="onStartTraining(f)" #f="ngForm">
-    <mat-card fxFlex.xs="100%" fxFlex="400px">
+  <form (ngSubmit)="onStartTraining(f)" #f="ngForm" class="workout-form">
+    <mat-card fxFlex.xs="100%" fxFlex="400px" class="hero-card">
       <mat-card-title fxLayoutAlign="center"
-        >Time to start a workout!</mat-card-title
+        >Time to Start a Workout!</mat-card-title
       >
       <mat-card-content fxLayoutAlign="center">
-        <mat-form-field *ngIf="!isLoading && exercises">
+        <mat-form-field *ngIf="!isLoading && exercises" class="exercise-select">
           <mat-select
             placeholder="Choose Exercise"
             ngModel
@@ -42,13 +20,14 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-spinner *ngIf="isLoading"> </mat-spinner>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
       </mat-card-content>
       <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
         <button
           *ngIf="exercises"
           type="submit"
           mat-button
+          class="cta-button primary"
           [disabled]="f.invalid"
         >
           Start
@@ -57,6 +36,7 @@
           *ngIf="!exercises"
           type="button"
           mat-button
+          class="cta-button secondary"
           (click)="fetchExercises()"
         >
           Fetch Again

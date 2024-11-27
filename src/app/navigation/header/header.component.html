@@ -4,15 +4,24 @@
       <mat-icon> menu </mat-icon>
     </button>
   </div>
-  <div style="display: flex; align-items: center;">
-    <img src="/assets/logo.jpg" alt="NG Fitness" style=" width: 15%;" />
-    <a routerLink="/welcome" style="margin-left: 8px; text-decoration: none; color: inherit;">
+  <div style="display: flex; align-items: center">
+    <img src="/assets/logo.jpg" alt="NG Fitness" style="width: 15%" />
+    <a
+      routerLink="/welcome"
+      style="margin-left: 8px; text-decoration: none; color: inherit"
+    >
       NG Fitness
     </a>
   </div>
-  
+
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px " class="navigation-items">
+      <li>
+        <a routerLink="/welcome"> Home </a>
+      </li>
+      <li>
+        <a routerLink="/about"> About </a>
+      </li>
       <li *ngIf="isAuth">
         <!-- Change *ngIf condition to check isAuth -->
         <a routerLink="/training"> Training </a>
